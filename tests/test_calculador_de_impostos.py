@@ -1,28 +1,32 @@
 from unittest.mock import patch
-import pytest
 
 from src.calculador_de_impostos import CalculadorDeImpostos
 from src.impostos import ICMS, ISS
-from src.orcamento import Orcamento
+from src.orcamento import Orcamento, Item
 
 
 @patch('builtins.print')
 class TestCalculadorDeImposto:
-    def test_deve_calcular_o_ISS(self, mock_print):
-        orcamento = Orcamento(100)
-        calculadorDeImposto = CalculadorDeImpostos()
+
+    def test_deve_calcular_o_iss(self, mock_print):
+        orcamento = Orcamento()
+        orcamento.adiciona_item(Item("a", 100))
+
+        calculador_de_imposto = CalculadorDeImpostos()
         imposto = ISS()
 
-        calculadorDeImposto.realiza_calculo(orcamento, imposto)
+        calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with(10.0)
 
-    def test_deve_calcular_o_ICMS(self, mock_print):
-        orcamento = Orcamento(100)
-        calculadorDeImposto = CalculadorDeImpostos()
+    def test_deve_calcular_o_icms(self, mock_print):
+        orcamento = Orcamento()
+        orcamento.adiciona_item(Item("a", 100))
+        calculador_de_imposto = CalculadorDeImpostos()
         imposto = ICMS()
 
-        calculadorDeImposto.realiza_calculo(orcamento, imposto)
+        calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with(6.0)
+
 
 
 
