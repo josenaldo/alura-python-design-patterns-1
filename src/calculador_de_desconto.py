@@ -1,6 +1,13 @@
+from src.desconto import DescontoPorCincoItens, DescontoPorMaisDeQuinhentosReais
+
+
+# noinspection PyMethodMayBeStatic
 class CalculadorDeDesconto:
     def calcula(self, orcamento):
-        if orcamento.total_itens > 5:
-            return orcamento.valor * 0.1
-        elif orcamento.valor > 500:
-            return orcamento.valor * 0.07
+
+        desconto = DescontoPorCincoItens().calcula(orcamento)
+
+        if desconto == 0:
+            desconto = DescontoPorMaisDeQuinhentosReais().calcula(orcamento)
+
+        return desconto

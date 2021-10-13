@@ -26,7 +26,3 @@ class TestCalculadorDeImposto:
 
         calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with(6.0)
-
-
-
-
