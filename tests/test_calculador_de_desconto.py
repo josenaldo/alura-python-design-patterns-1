@@ -41,3 +41,13 @@ class TestCalculadorDeDesconto:
 
         desconto = calculador_de_desconto.calcula(orcamento)
         assert desconto == 10.0
+
+    def test_nao_tem_desconto_se_o_orcamento_tem_menos_de_5_itens_e_se_o_valor_do_orcamento_eh_menor_que_500(self):
+        orcamento = Orcamento()
+        orcamento.adiciona_item(Item("a", 10))
+        orcamento.adiciona_item(Item("b", 20))
+
+        calculador_de_desconto = CalculadorDeDesconto()
+
+        desconto = calculador_de_desconto.calcula(orcamento)
+        assert desconto == 0
