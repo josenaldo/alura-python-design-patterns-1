@@ -24,8 +24,27 @@ class IKCV:
             return orcamento.valor * 0.06
 
     def __tem_item_maior_que_100_reais(self, orcamento):
-        for item in orcamento.obter_itens():
-            if(item.valor > 100):
-                return True
+        """
+        Esse método pode ter uma implementação bem mais simples, com um if::
 
-        return False
+            for item in orcamento.obter_itens():
+                if(item.valor > 100):
+                    return True
+                return False
+
+        Ou uma implementação usando filter::
+
+            maiores_que_100 = list(filter(lambda x: x.valor > 100, orcamento.obter_itens()))
+            return len(maiores_que_100) > 0
+
+        :param orcamento: Orçamento
+        :return: True, se o orçamento tiver algum item com valor maior que 100
+        """
+
+        maiores_que_100 = [item for item in orcamento.obter_itens() if item.valor > 100]
+        return len(maiores_que_100) > 0
+
+
+
+
+
