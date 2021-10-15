@@ -4,7 +4,7 @@ from abc import ABCMeta, abstractmethod
 def logador_de_imposto(invocavel):
     def wrapper(self, orcamento):
         imposto = invocavel(self, orcamento)
-        logging.info(f"Imposto: {self.nome} | Valor: {imposto}")
+        logging.info(f"Imposto: {self.nome} | Valor: R$ {imposto:.2f}")
         return imposto
     return wrapper
 
