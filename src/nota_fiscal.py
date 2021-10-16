@@ -1,8 +1,9 @@
 from datetime import date
 from validate_docbr import CNPJ
 
+
 class NotaFiscal:
-    def __init__(self, razao_social, cnpj, itens, data_de_emissao= None, detalhes=''):
+    def __init__(self, razao_social, cnpj, itens, data_de_emissao=None, detalhes=''):
 
         if razao_social is None:
             raise ValueError("É preciso fornecer uma razão social")

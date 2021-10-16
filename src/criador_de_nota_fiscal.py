@@ -40,4 +40,3 @@ class CriadorDeNotaFiscal:
         )
 
         return nota_fiscal
-
