@@ -1,3 +1,6 @@
+import decimal
+from decimal import Decimal
+
 class SemDesconto:
     def __init__(self, proximo_desconto=None):
         self._proximo_desconto = proximo_desconto
@@ -17,7 +20,8 @@ class DescontoPorCincoItens(SemDesconto):
 
     def calcula(self, orcamento):
         if orcamento.total_itens > 5:
-            return orcamento.valor * 0.1
+
+            return orcamento.valor * Decimal("0.10")
         else:
             return self.calcula_proximo_desconto(orcamento)
 
@@ -26,7 +30,8 @@ class DescontoPorCincoItens(SemDesconto):
 class DescontoPorMaisDeQuinhentosReais(SemDesconto):
 
     def calcula(self, orcamento):
-        if orcamento.valor > 500:
-            return orcamento.valor * 0.07
+        if orcamento.valor > Decimal("500"):
+
+            return orcamento.valor * Decimal("0.07")
         else:
             return self.calcula_proximo_desconto(orcamento)

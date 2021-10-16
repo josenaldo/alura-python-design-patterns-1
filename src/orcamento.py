@@ -1,12 +1,24 @@
+from decimal import Decimal
+from src.estados_de_orcamento import EmAprovacao
+
+
 class Orcamento:
     def __init__(self):
         self.__itens = []
+        self.__estado_atual = EmAprovacao()
+        self.__desconto_extra = Decimal(0.00)
 
     @property
     def valor(self):
-        total = sum(item.valor for item in self.__itens)
+        return sum(item.valor for item in self.__itens) - self.__desconto_extra
 
-        return total
+    @property
+    def estado_atual(self):
+        return self.__estado_atual
+
+    @estado_atual.setter
+    def estado_atual(self, value):
+        self.__estado_atual = value
 
     def obter_itens(self):
         return tuple(self.__itens)
@@ -17,12 +29,31 @@ class Orcamento:
 
     def adiciona_item(self, item):
         self.__itens.append(item)
+        
+    def adiciona_itens(self, itens):
+        for item in itens:
+            self.adiciona_item(item)
+
+    def aprova(self):
+        self.estado_atual.aprova(self)
+
+    def reprova(self):
+        self.estado_atual.reprova(self)
+
+    def finaliza(self):
+        self.estado_atual.finaliza(self)
+
+    def aplica_disconto_extra(self):
+        self.estado_atual.aplica_desconto_extra(self)
+
+    def adiciona_desconto_extra(self, desconto):
+        self.__desconto_extra += desconto
 
 
 class Item:
     def __init__(self, nome, valor):
         self.__nome = nome
-        self.__valor = valor
+        self.__valor = Decimal(valor)
 
     @property
     def nome(self):

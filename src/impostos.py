@@ -1,5 +1,7 @@
 import logging
+from decimal import Decimal
 from abc import ABCMeta, abstractmethod
+
 
 def logador_de_imposto(invocavel):
     def wrapper(self, orcamento):
@@ -7,6 +9,7 @@ def logador_de_imposto(invocavel):
         logging.info(f"Imposto: {self.nome} | Valor: R$ {imposto:.2f}")
         return imposto
     return wrapper
+
 
 class Imposto(metaclass=ABCMeta):
     def __init__(self, nome, outro_imposto=None):
@@ -19,7 +22,6 @@ class Imposto(metaclass=ABCMeta):
             return self.__nome
         else:
             return f"{self.__nome}+{self.__outro_imposto.nome}"
-
 
     @abstractmethod
     def calcula(self, orcamento):
@@ -36,7 +38,7 @@ class ImpostoSimples(Imposto):
 
     def __init__(self, nome, aliquota, outro_imposto=None):
         super(ImpostoSimples, self).__init__(nome, outro_imposto)
-        self.__aliquota = aliquota
+        self.__aliquota = Decimal(aliquota)
 
     @property
     def aliquota(self):
@@ -51,8 +53,8 @@ class ImpostoCondicional(Imposto, metaclass=ABCMeta):
 
     def __init__(self, nome, aliquota_minima, aliquota_maxima, outro_imposto=None):
         super(ImpostoCondicional, self).__init__(nome, outro_imposto)
-        self.__aliquota_minima = aliquota_minima
-        self.__aliquota_maxima = aliquota_maxima
+        self.__aliquota_minima = Decimal(aliquota_minima)
+        self.__aliquota_maxima = Decimal(aliquota_maxima)
 
     @property
     def aliquota_minima(self):
@@ -69,6 +71,9 @@ class ImpostoCondicional(Imposto, metaclass=ABCMeta):
         else:
             return self.taxacao_minima(orcamento) + self.calcula_outro_imposto(orcamento)
 
+    @abstractmethod
+    def deve_usar_a_taxacao_maxima(self, orcamento):
+        pass
 
     def taxacao_minima(self, orcamento):
         return orcamento.valor * self.aliquota_minima
@@ -79,7 +84,7 @@ class ImpostoCondicional(Imposto, metaclass=ABCMeta):
 
 class ISS(ImpostoSimples):
     def __init__(self, outro_imposto=None):
-        super(ISS, self).__init__("ISS", 0.1, outro_imposto)
+        super(ISS, self).__init__("ISS", 0.10, outro_imposto)
 
 
 class ICMS(ImpostoSimples):
@@ -97,7 +102,7 @@ class ICPP(ImpostoCondicional):
 
 class IKCV(ImpostoCondicional):
     def __init__(self, outro_imposto=None):
-        super(IKCV, self).__init__("IKCV", 0.06, 0.1, outro_imposto)
+        super(IKCV, self).__init__("IKCV", 0.06, 0.10, outro_imposto)
 
     def deve_usar_a_taxacao_maxima(self, orcamento):
         return orcamento.valor > 500 and self.__tem_item_maior_que_100_reais(orcamento)
