@@ -3,7 +3,8 @@ from decimal import Decimal
 import pytest
 
 from src.estados_de_orcamento import EmAprovacao, Aprovado, Reprovado, Finalizado
-from src.orcamento import Orcamento, Item
+from src.orcamento import Orcamento
+from src.item import Item
 
 
 class TestOrcamento:

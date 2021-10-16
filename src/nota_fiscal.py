@@ -4,7 +4,7 @@ class NotaFiscal:
         self.__cnpj = cnpj
         self.__itens = itens
         self.__data_de_emissao = data_de_emissao
-        if(len(detalhes) > 20):
+        if len(detalhes) > 20:
             raise ValueError("Detalhes da nota não pode ter mais do que 20 caracteres")
         self.__detalhes = detalhes
 

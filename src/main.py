@@ -2,7 +2,8 @@ import logging
 
 from src.calculador_de_impostos import CalculadorDeImpostos
 from src.impostos import IKCV
-from src.orcamento import Orcamento, Item
+from src.orcamento import Orcamento
+from src.item import Item
 
 logging.basicConfig(level=logging.DEBUG)
 

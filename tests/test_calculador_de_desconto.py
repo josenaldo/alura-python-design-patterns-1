@@ -3,7 +3,8 @@ from decimal import Decimal
 import pytest
 
 from src.calculador_de_desconto import CalculadorDeDesconto
-from src.orcamento import Orcamento, Item
+from src.orcamento import Orcamento
+from src.item import Item
 
 
 class TestCalculadorDeDesconto:
@@ -77,7 +78,7 @@ class TestCalculadorDeDesconto:
         assert desconto == Decimal("45.00")
 
     def test_nao_tem_desconto_se_o_orcamento_tem_menos_de_5_itens_e_se_o_valor_do_orcamento_eh_menor_que_500(
-            self,calculador_de_desconto, orcamento, itens_baratos):
+            self, calculador_de_desconto, orcamento, itens_baratos):
         orcamento.adiciona_itens(itens_baratos[0:3])
         desconto = calculador_de_desconto.calcula(orcamento)
         assert desconto == Decimal("0.00")

@@ -1,11 +1,12 @@
-import logging
 from unittest.mock import patch
 
 import pytest
 
 from src.calculador_de_impostos import CalculadorDeImpostos
 from src.impostos import ICMS, ISS, ICPP, IKCV
-from src.orcamento import Orcamento, Item
+from src.orcamento import Orcamento
+from src.item import Item
+
 
 @patch('builtins.print')
 class TestCalculadorDeImposto:
@@ -47,7 +48,8 @@ class TestCalculadorDeImposto:
         calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with("ICPP = 70.00")
 
-    def test_deve_calcular_o_ikcv_para_orcamento_com_um_item_maior_que_100_reais_e_valor_maior_que_500(self, mock_print, orcamento):
+    def test_deve_calcular_o_ikcv_para_orcamento_com_um_item_maior_que_100_reais_e_valor_maior_que_500(
+            self, mock_print, orcamento):
         orcamento.adiciona_item(Item("b", 900))
 
         calculador_de_imposto = CalculadorDeImpostos()
@@ -56,7 +58,8 @@ class TestCalculadorDeImposto:
         calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with("IKCV = 100.00")
 
-    def test_deve_calcular_o_ikcv_para_orcamento_sem_um_item_maior_que_100_reais_e_valor_maior_que_500(self, mock_print, orcamento):
+    def test_deve_calcular_o_ikcv_para_orcamento_sem_um_item_maior_que_100_reais_e_valor_maior_que_500(
+            self, mock_print, orcamento):
 
         for i in range(0, 10):
             orcamento.adiciona_item(Item("b", 90))
@@ -67,7 +70,8 @@ class TestCalculadorDeImposto:
         calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with("IKCV = 60.00")
 
-    def test_deve_calcular_o_ikcv_para_orcamento_com_um_item_maior_que_100_reais_e_valor_menor_que_500(self, mock_print, orcamento):
+    def test_deve_calcular_o_ikcv_para_orcamento_com_um_item_maior_que_100_reais_e_valor_menor_que_500(
+            self, mock_print, orcamento):
         orcamento.adiciona_item(Item("b", 300))
 
         calculador_de_imposto = CalculadorDeImpostos()
@@ -76,7 +80,8 @@ class TestCalculadorDeImposto:
         calculador_de_imposto.realiza_calculo(orcamento, imposto)
         mock_print.assert_called_once_with("IKCV = 24.00")
 
-    def test_deve_calcular_o_ikcv_para_orcamento_sem_um_item_maior_que_100_reais_e_valor_menor_que_500(self, mock_print, orcamento):
+    def test_deve_calcular_o_ikcv_para_orcamento_sem_um_item_maior_que_100_reais_e_valor_menor_que_500(
+            self, mock_print, orcamento):
         calculador_de_imposto = CalculadorDeImpostos()
         imposto = IKCV()
 

@@ -44,24 +44,10 @@ class Orcamento:
         self.estado_atual.finaliza(self)
 
     def aplica_disconto_extra(self):
-        if(self.__desconto_extra == Decimal("0.00")):
+        if self.__desconto_extra == Decimal("0.00"):
             self.estado_atual.aplica_desconto_extra(self)
         else:
             raise Exception("O desconto extra não pode ser aplicado duas vezes.")
 
     def adiciona_desconto_extra(self, desconto):
         self.__desconto_extra += desconto
-
-
-class Item:
-    def __init__(self, nome, valor):
-        self.__nome = nome
-        self.__valor = Decimal(valor)
-
-    @property
-    def nome(self):
-        return self.__nome
-
-    @property
-    def valor(self):
-        return self.__valor
