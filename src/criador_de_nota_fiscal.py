@@ -32,8 +32,8 @@ class CriadorDeNotaFiscal:
     def constroi(self):
 
         nota_fiscal = NotaFiscal(
-            cnpj=self.__cnpj,
             razao_social=self.__razao_social,
+            cnpj=self.__cnpj,
             itens=self.__itens,
             data_de_emissao=self.__data_de_emissao,
             detalhes=self.__detalhes
