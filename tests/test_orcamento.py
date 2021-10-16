@@ -88,4 +88,4 @@ class TestOrcamento:
 
     def test_orcamento_deve_retornar_a_soma_dos_valores_dos_itens(self, orcamento, itens_baratos):
         orcamento.adiciona_itens(itens_baratos)
-        assert orcamento.valor == Decimal(450.00)
+        assert orcamento.valor == Decimal("450.00")

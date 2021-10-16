@@ -27,7 +27,7 @@ class EstadoDeOrcamento(metaclass=ABCMeta):
 class EmAprovacao(EstadoDeOrcamento):
 
     def aplica_desconto_extra(self, orcamento):
-        orcamento.adiciona_desconto_extra(orcamento.valor * Decimal(0.02))
+        orcamento.adiciona_desconto_extra(orcamento.valor * Decimal("0.02"))
 
     def aprova(self, orcamento):
         orcamento.estado_atual = Aprovado()
@@ -42,7 +42,7 @@ class EmAprovacao(EstadoDeOrcamento):
 class Aprovado(EstadoDeOrcamento):
 
     def aplica_desconto_extra(self, orcamento):
-        orcamento.adiciona_desconto_extra(orcamento.valor * Decimal(0.05))
+        orcamento.adiciona_desconto_extra(orcamento.valor * Decimal("0.05"))
 
     def aprova(self, orcamento):
         raise Exception('Orçamento já está aprovado')
