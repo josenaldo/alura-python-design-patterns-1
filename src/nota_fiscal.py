@@ -7,7 +7,8 @@ class NotaFiscal:
 
         if razao_social is None:
             raise ValueError("É preciso fornecer uma razão social")
-        self.__razao_social = razao_social
+        else:
+            self.__razao_social = razao_social
 
         if cnpj is None:
             raise ValueError("É preciso fornecer um CNPJ")
