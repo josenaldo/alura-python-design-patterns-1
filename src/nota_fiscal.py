@@ -3,7 +3,7 @@ from validate_docbr import CNPJ
 
 
 class NotaFiscal:
-    def __init__(self, razao_social, cnpj, itens, data_de_emissao=None, detalhes=''):
+    def __init__(self, razao_social, cnpj, itens, data_de_emissao=None, detalhes='', observadores=None):
 
         if razao_social is None:
             raise ValueError("É preciso fornecer uma razão social")
@@ -30,6 +30,10 @@ class NotaFiscal:
             self.__detalhes = detalhes
         else:
             raise ValueError("Detalhes da nota não pode ter mais do que 20 caracteres")
+
+        if observadores:
+            for observador in observadores:
+                observador(self)
 
 
     @property

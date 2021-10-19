@@ -21,7 +21,6 @@ class TestCriadorDeNotaFiscal:
         itens = [Item("ITEM A", 100), Item("ITEM B", 200)]
         return itens
 
-
     def test_criador_nao_pode_criar_nota_fiscal_sem_razao_social(self, cnpj, itens):
         with pytest.raises(ValueError):
             CriadorDeNotaFiscal().com_cnpj(cnpj).com_itens(itens).constroi()
